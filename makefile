@@ -24,9 +24,6 @@ test: testLink
 testLink: puzzle_funcs.o puzzle_tests.o
 	$(GCC) -o test puzzle_funcs.o puzzle_tests.o
 
-puzzle_funcs.o: puzzle_funcs.c puzzle.h
-	$(GCC) -c puzzle_funcs.c $(CFLAGS)
-
 puzzle_tests.o: puzzle_tests.c puzzle.h
 	$(GCC) -c puzzle_tests.c $(CFLAGS)
 

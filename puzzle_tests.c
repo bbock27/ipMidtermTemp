@@ -58,11 +58,19 @@ int main(void) {
     { 14, 15, 10, 12 },
     };
 
+    int init2[4][4] = {
+    { 1, 2, 3, 4 },
+    { 5, 6, 7, 8 },
+    { 9, 10, 11, 12 },
+    { 13, 14, 0, 15 },
+    };
+
     int *testGrid = &init[0][0];
-
-    Puzzle *testPuzzle = malloc(sizeof(Puzzle));
-
     Puzzle tempPuzzle = {4, testGrid, ""};
+
+    Puzzle *testPuzzle = malloc(sizeof(tempPuzzle));
+
+    
 
     *testPuzzle = tempPuzzle;
 
@@ -73,8 +81,10 @@ int main(void) {
     }
     printf("%d ", testPuzzle->grid[i]);
     }
-    printf("\n\n");
-    free(solve(testPuzzle, 'n', 0, 9));
+    printf("\n\n\n");
+    free(solve(*testPuzzle, 'n', 0, findEmptyIndex(testPuzzle)));
+
+
     for(int i = 0; i < 16; i++){
         if((i) % 4 == 0){
             printf("\n");
