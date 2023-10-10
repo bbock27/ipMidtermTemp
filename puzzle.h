@@ -24,6 +24,8 @@ int solve(Puzzle *puzzle, int maxMoves);
 //returns -1 if no empty space found
 int findEmptyIndex(Puzzle *puzzle);
 
+void setPuzzleImage(Puzzle *, char *imageFile);
+void setPuzzleGrid(Puzzle *, int *);
 void deletePuzzle(Puzzle *puzzle);
 int moveRight(Puzzle *puzzle, int emptyIndex);
 int moveLeft(Puzzle *puzzle, int emptyIndex);

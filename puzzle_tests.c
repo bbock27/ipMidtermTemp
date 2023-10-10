@@ -59,10 +59,10 @@ int main(void) {
     { 14, 15, 10, 12 },
     };
 
-    int testGrid2[] = {5, 7, 1, 2, 0, 9, 3, 4, 13, 8, 6, 11, 14, 15, 10, 12};
+    // int testGrid2[] = {5, 7, 1, 2, 0, 9, 3, 4, 13, 8, 6, 11, 14, 15, 10, 12};
     int testGrid3[] = {2, 4, 3, 1, 0, 5, 7, 8, 6};
     int testGrid4[] = {5, 8, 2, 7, 1, 3, 4, 6, 0};
-    int testGrid5[] = {12, 1, 2, 15, 11, 6, 5, 8, 7, 10, 9, 4, 0, 13, 14, 3};
+    // int testGrid5[] = {12, 1, 2, 15, 11, 6, 5, 8, 7, 10, 9, 4, 0, 13, 14, 3};
     int testGrid6[] = {7, 8, 6, 1, 4, 2, 5, 3, 0};
     int init2[3][3] = {
     { 1, 2, 3},
@@ -73,13 +73,16 @@ int main(void) {
 
     int *testGrid = &init2[0][0];
     int puzzleSize = 3;
-    Puzzle tempPuzzle = {puzzleSize, testGrid6, "test"};
+    // Puzzle tempPuzzle = {puzzleSize, testGrid6, "test"};
+    Puzzle *testPuzzle = createPuzzle(3);
+    setPuzzleGrid(testPuzzle, testGrid);
+    setPuzzleImage(testPuzzle, "test");
 
-    Puzzle *testPuzzle = malloc(sizeof(tempPuzzle));
+    // Puzzle *testPuzzle = malloc(sizeof(tempPuzzle));
 
     
 
-    *testPuzzle = tempPuzzle;
+    // *testPuzzle = tempPuzzle;
 
     printPuzzle(*testPuzzle);
 

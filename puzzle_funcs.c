@@ -9,10 +9,22 @@
 
 Puzzle *createPuzzle(int size){
     // int temp[] = {1, 0, 4, 3};
-    size+=1;
-    
+    Puzzle *p = malloc(sizeof(Puzzle));
+    p->grid = calloc(size*size, sizeof(int));
+    p->size = size;
     // Puzzle p = {size, temp, "image"};
-    return malloc(sizeof(Puzzle));
+    return p;
+}
+
+void setPuzzleImage(Puzzle *puzzle, char *imageFile){
+    puzzle->image = calloc(strlen(imageFile)+1, sizeof(char));
+}
+
+void setPuzzleGrid(Puzzle *puzzle, int *grid){
+    puzzle->grid = malloc( (puzzle->size * puzzle->size)*sizeof(int));
+    for(int i = 0; i < (puzzle->size * puzzle->size); i++){
+        puzzle->grid[i] = grid[i];
+    }
 }
 
 void printPuzzle(Puzzle puzzle){
