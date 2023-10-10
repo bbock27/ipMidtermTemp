@@ -27,6 +27,19 @@ void setPuzzleGrid(Puzzle *puzzle, int *grid){
     }
 }
 
+void changePuzzleImage(Puzzle *puzzle, char *imageFile){
+    free(puzzle->image);
+    puzzle->image = malloc((strlen(imageFile)+1) * sizeof(char));
+    strcpy(puzzle->image, imageFile);
+}
+void changePuzzleGrid(Puzzle *puzzle, int *newGrid){
+    for(int i = 0; i < (puzzle->size * puzzle->size); i++){
+        puzzle->grid[i] = newGrid[i];
+    }
+}
+
+
+
 void printPuzzle(Puzzle puzzle){
     for(int i = 0; i < (puzzle.size * puzzle.size); i++){
 
