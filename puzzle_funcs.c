@@ -8,9 +8,11 @@
 // TODO: implement functions
 
 Puzzle *createPuzzle(int size){
-
+    // int temp[] = {1, 0, 4, 3};
+    size+=1;
     
-    
+    // Puzzle p = {size, temp, "image"};
+    return malloc(sizeof(Puzzle));
 }
 
 
@@ -23,6 +25,12 @@ int findEmptyIndex(Puzzle *puzzle){
     return -1;
 }
 
+void deletePuzzle(Puzzle *puzzle){
+    free(puzzle->grid);
+    free(puzzle->image);
+    free(puzzle);
+}
+
 
 
 int isLegalMove(Puzzle *puzzle, char direction, int emptyIndex){
@@ -33,20 +41,20 @@ int isLegalMove(Puzzle *puzzle, char direction, int emptyIndex){
         return 1; // true
     }
     else if(direction == 'r'){
-        if((emptyIndex-1) % (puzzle->size) == 0){
+        if((emptyIndex) % (puzzle->size) == 0){
             return 0; //false
         }
         return 1; // true
     }
     else if(direction == 'd'){
-        if(emptyIndex - puzzle->size >= 0){
+        if(emptyIndex < puzzle->size){
             return 0; //false
         }
         return 1; // true
     }
 
     else if(direction == 'u'){
-        if((emptyIndex) + (puzzle->size) >= puzzle->size){
+        if((emptyIndex) + (puzzle->size) >= (puzzle->size * puzzle->size)){
             return 0; //false
         }
         return 1; // true
@@ -110,7 +118,10 @@ int isSolved(Puzzle *puzzle){
             if(puzzle->grid[i] == 0){
                 continue;
             }
-            return 0;
+            else{
+                return 0;
+            }
+            
         }
     }
     return 1;
@@ -120,23 +131,43 @@ int isSolved(Puzzle *puzzle){
 Puzzle *copyPuzzle(int *grid, int size, char *image){
     Puzzle *newPuzzle = malloc(sizeof(Puzzle));
     newPuzzle->size = size;
+    newPuzzle->grid = malloc( (size * size)*sizeof(int));
+    
     for(int i = 0; i < (newPuzzle->size * newPuzzle->size); i++){
         newPuzzle->grid[i] = grid[i];
     }
+
+    newPuzzle->image = malloc(sizeof(char)*(strlen(image)+1));
     strcpy(newPuzzle->image, image);
     return newPuzzle;
 }
 
+void followPath(Puzzle *puzzle, char *path){
+    for(int i = 0; i < (int)strlen(path); i++){
+        if(path[i] == 'r'){
+            moveRight(puzzle, findEmptyIndex(puzzle));
+        }
+        else if(path[i] == 'l'){
+            moveLeft(puzzle, findEmptyIndex(puzzle));
+        }
+        else if(path[i] == 'd'){
+            moveDown(puzzle, findEmptyIndex(puzzle));
+        }
+        else if(path[i] == 'u'){
+            moveUp(puzzle, findEmptyIndex(puzzle));
+        }
+    }
+}
 
-char *solve(Puzzle puzzle, char direction, int moveNum, int emptyIndex){
-    
+
+char *findSolvePath(Puzzle puzzle, char direction, int moveNum, int emptyIndex){
     
 
-    if(moveNum == 1000){
+    if(moveNum == 50){
         return NULL;
     }
-    Puzzle currPuzzle = puzzle;
-    Puzzle *currPuzzlePtr = &currPuzzle;
+    // Puzzle currPuzzle = puzzle;
+    Puzzle *currPuzzlePtr = copyPuzzle(puzzle.grid, puzzle.size, puzzle.image);
 
     if(direction == 'l'){
         emptyIndex = moveLeft(currPuzzlePtr, emptyIndex);
@@ -155,10 +186,13 @@ char *solve(Puzzle puzzle, char direction, int moveNum, int emptyIndex){
         moveNum += 1;
     }
 
-    if(isSolved(&puzzle)){
+
+    if(isSolved(currPuzzlePtr)){
+        printf("solution");
         char *solution = malloc((moveNum*sizeof(char)) +1);
         solution[moveNum] = '\0';
         solution[moveNum-1] = direction;
+        deletePuzzle(currPuzzlePtr);
         return solution;
     }
 
@@ -166,32 +200,53 @@ char *solve(Puzzle puzzle, char direction, int moveNum, int emptyIndex){
 
 
     if((isLegalMove(currPuzzlePtr, 'l', emptyIndex)) && direction != 'r'){
-        result = solve(*currPuzzlePtr, 'l', moveNum, emptyIndex);
+        if(moveNum == 0){
+            printf("left");
+        }
+        result = findSolvePath(*currPuzzlePtr, 'l', moveNum, emptyIndex);
         if(result != NULL){
+            result[moveNum] = 'l';
+            deletePuzzle(currPuzzlePtr);
             return result;
         }
     }
 
     if((isLegalMove(currPuzzlePtr, 'r', emptyIndex)) && direction != 'l'){
-        result = solve(*currPuzzlePtr, 'r', moveNum, emptyIndex);
+        if(moveNum == 0){
+            printf("right");
+        }
+        result = findSolvePath(*currPuzzlePtr, 'r', moveNum, emptyIndex);
         if(result != NULL){
+            result[moveNum] = 'r';
+            deletePuzzle(currPuzzlePtr);
             return result;
         }
     }
 
     if((isLegalMove(currPuzzlePtr, 'u', emptyIndex)) && direction != 'd'){
-        result = solve(*currPuzzlePtr, 'u', moveNum, emptyIndex);
+        if(moveNum == 0){
+            printf("up");
+        }
+        result = findSolvePath(*currPuzzlePtr, 'u', moveNum, emptyIndex);
         if(result != NULL){
+            result[moveNum] = 'u';
+            deletePuzzle(currPuzzlePtr);
             return result;
         }
     }
 
     if((isLegalMove(currPuzzlePtr, 'd', emptyIndex)) && direction != 'u'){
-        result = solve(*currPuzzlePtr, 'd', moveNum, emptyIndex);
+        if(moveNum == 0){
+            printf("sdcwdc");
+        }
+        result = findSolvePath(*currPuzzlePtr, 'd', moveNum, emptyIndex);
         if(result != NULL){
+            result[moveNum] = 'd';
+            deletePuzzle(currPuzzlePtr);
             return result;
         }
     }
+    deletePuzzle(currPuzzlePtr);
     return NULL;
 
 

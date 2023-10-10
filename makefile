@@ -18,10 +18,10 @@ puzzle.o: puzzle.c puzzle.h
 
 # TODO: instructions to compile and run the test file
 
-test: testLink
+test: debug
 	./test
 
-testLink: puzzle_funcs.o puzzle_tests.o
+debug: puzzle_funcs.o puzzle_tests.o
 	$(GCC) -o test puzzle_funcs.o puzzle_tests.o
 
 puzzle_tests.o: puzzle_tests.c puzzle.h

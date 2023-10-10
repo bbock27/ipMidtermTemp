@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <assert.h>
+#include <string.h>
 #include "puzzle.h"
 
 // also tests puzzle_destroy
@@ -58,15 +59,21 @@ int main(void) {
     { 14, 15, 10, 12 },
     };
 
-    int init2[4][4] = {
-    { 1, 2, 3, 4 },
-    { 5, 6, 7, 8 },
-    { 9, 10, 11, 12 },
-    { 13, 14, 0, 15 },
+    int testGrid2[] = {5, 7, 1, 2, 0, 9, 3, 4, 13, 8, 6, 11, 14, 15, 10, 12};
+    int testGrid3[] = {2, 4, 3, 1, 0, 5, 7, 8, 6};
+    int testGrid4[] = {5, 8, 2, 7, 1, 3, 4, 6, 0};
+    int testGrid5[] = {12, 1, 2, 15, 11, 6, 5, 8, 7, 10, 9, 4, 0, 13, 14, 3};
+    int testGrid6[] = {7, 8, 6, 1, 4, 2, 5, 3, 0};
+    int init2[3][3] = {
+    { 1, 2, 3},
+    { 5, 6, 7},
+    { 9, 4, 0}
     };
 
-    int *testGrid = &init[0][0];
-    Puzzle tempPuzzle = {4, testGrid, ""};
+
+    int *testGrid = &init2[0][0];
+    int puzzleSize = 3;
+    Puzzle tempPuzzle = {puzzleSize, testGrid6, "test"};
 
     Puzzle *testPuzzle = malloc(sizeof(tempPuzzle));
 
@@ -74,19 +81,27 @@ int main(void) {
 
     *testPuzzle = tempPuzzle;
 
-    for(int i = 0; i < 16; i++){
+    for(int i = 0; i < (puzzleSize * puzzleSize); i++){
 
-    if((i) % 4 == 0){
+    if((i) % puzzleSize == 0){
         printf("\n");
     }
     printf("%d ", testPuzzle->grid[i]);
     }
-    printf("\n\n\n");
-    free(solve(*testPuzzle, 'n', 0, findEmptyIndex(testPuzzle)));
+    printf("\n----\n\n");
+    char *path = findSolvePath(*testPuzzle, 'n', 0, findEmptyIndex(testPuzzle));
+    printf("\n----\n");
+    if(path != NULL){
+        followPath(testPuzzle, path);
+        printf("\n%s - %d\n", path, (int)strlen(path));
+        free(path);
+    }
+    if(path == NULL){
+        printf("null path\n");
+    }
 
-
-    for(int i = 0; i < 16; i++){
-        if((i) % 4 == 0){
+    for(int i = 0; i < (puzzleSize*puzzleSize); i++){
+        if((i) % puzzleSize == 0){
             printf("\n");
         }
         printf("%d ", testPuzzle->grid[i]);

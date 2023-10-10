@@ -26,10 +26,11 @@ int moveLeft(Puzzle *puzzle, int emptyIndex);
 int moveUp(Puzzle *puzzle, int emptyIndex);
 int moveDown(Puzzle *puzzle, int emptyIndex);
 void swap(Puzzle *puzzle, int index1, int index2);
+void followPath(Puzzle *puzzle, char *path);
 
 int isLegalMove(Puzzle *puzzle, char direction, int emptyIndex);
 
-char *solve(Puzzle puzzle, char direction, int moveNum, int emptyIndex);
+char *findSolvePath(Puzzle puzzle, char direction, int moveNum, int emptyIndex);
 
 
 //returns 0 if not solved and 1 if solved
