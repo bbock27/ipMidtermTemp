@@ -17,10 +17,14 @@ typedef struct {
 
 
 Puzzle *createPuzzle(int size);
+Puzzle *copyPuzzle(int *grid, int size, char *image);
+int solve(Puzzle *puzzle, int maxMoves);
 
 //returns index of the current empty space in the puzzle
 //returns -1 if no empty space found
 int findEmptyIndex(Puzzle *puzzle);
+
+void deletePuzzle(Puzzle *puzzle);
 int moveRight(Puzzle *puzzle, int emptyIndex);
 int moveLeft(Puzzle *puzzle, int emptyIndex);
 int moveUp(Puzzle *puzzle, int emptyIndex);
@@ -30,7 +34,7 @@ void followPath(Puzzle *puzzle, char *path);
 
 int isLegalMove(Puzzle *puzzle, char direction, int emptyIndex);
 
-char *findSolvePath(Puzzle puzzle, char direction, int moveNum, int emptyIndex);
+char *findSolvePath(Puzzle puzzle, char direction, int moveNum, int emptyIndex, int maxMoves);
 
 
 //returns 0 if not solved and 1 if solved

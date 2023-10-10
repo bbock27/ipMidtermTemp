@@ -83,22 +83,15 @@ int main(void) {
 
     for(int i = 0; i < (puzzleSize * puzzleSize); i++){
 
-    if((i) % puzzleSize == 0){
-        printf("\n");
+        if((i) % puzzleSize == 0){
+            printf("\n");
+        }
+        printf("%d ", testPuzzle->grid[i]);
     }
-    printf("%d ", testPuzzle->grid[i]);
-    }
-    printf("\n----\n\n");
-    char *path = findSolvePath(*testPuzzle, 'n', 0, findEmptyIndex(testPuzzle));
-    printf("\n----\n");
-    if(path != NULL){
-        followPath(testPuzzle, path);
-        printf("\n%s - %d\n", path, (int)strlen(path));
-        free(path);
-    }
-    if(path == NULL){
-        printf("null path\n");
-    }
+    printf("\n");
+    
+    solve(testPuzzle, 150);
+    
 
     for(int i = 0; i < (puzzleSize*puzzleSize); i++){
         if((i) % puzzleSize == 0){

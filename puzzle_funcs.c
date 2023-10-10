@@ -16,6 +16,22 @@ Puzzle *createPuzzle(int size){
 }
 
 
+int solve(Puzzle *puzzle, int maxMoves){
+    int zeroIndex = findEmptyIndex(puzzle);
+    if(zeroIndex == -1){
+        printf("no empty tile found\n");
+        return 1;
+    }
+    char *path = findSolvePath(*puzzle, 'n', 0, zeroIndex, maxMoves);
+    if(path == NULL){
+        printf("no valid path in the amount of moves given.");
+        return 2;
+    }
+    followPath(puzzle, path);
+    free(path);
+    return 0;
+}
+
 int findEmptyIndex(Puzzle *puzzle){
     for(int i = 0; i < (puzzle->size * puzzle->size); i++){
         if(puzzle->grid[i] == 0){
@@ -160,10 +176,10 @@ void followPath(Puzzle *puzzle, char *path){
 }
 
 
-char *findSolvePath(Puzzle puzzle, char direction, int moveNum, int emptyIndex){
+char *findSolvePath(Puzzle puzzle, char direction, int moveNum, int emptyIndex, int maxMoves){
     
 
-    if(moveNum == 50){
+    if(moveNum == maxMoves){
         return NULL;
     }
     // Puzzle currPuzzle = puzzle;
@@ -188,7 +204,7 @@ char *findSolvePath(Puzzle puzzle, char direction, int moveNum, int emptyIndex){
 
 
     if(isSolved(currPuzzlePtr)){
-        printf("solution");
+        // printf("solution");
         char *solution = malloc((moveNum*sizeof(char)) +1);
         solution[moveNum] = '\0';
         solution[moveNum-1] = direction;
@@ -200,10 +216,10 @@ char *findSolvePath(Puzzle puzzle, char direction, int moveNum, int emptyIndex){
 
 
     if((isLegalMove(currPuzzlePtr, 'l', emptyIndex)) && direction != 'r'){
-        if(moveNum == 0){
-            printf("left");
-        }
-        result = findSolvePath(*currPuzzlePtr, 'l', moveNum, emptyIndex);
+        // if(moveNum == 0){
+        //     printf("left");
+        // }
+        result = findSolvePath(*currPuzzlePtr, 'l', moveNum, emptyIndex, maxMoves);
         if(result != NULL){
             result[moveNum] = 'l';
             deletePuzzle(currPuzzlePtr);
@@ -212,10 +228,10 @@ char *findSolvePath(Puzzle puzzle, char direction, int moveNum, int emptyIndex){
     }
 
     if((isLegalMove(currPuzzlePtr, 'r', emptyIndex)) && direction != 'l'){
-        if(moveNum == 0){
-            printf("right");
-        }
-        result = findSolvePath(*currPuzzlePtr, 'r', moveNum, emptyIndex);
+        // if(moveNum == 0){
+        //     printf("right");
+        // }
+        result = findSolvePath(*currPuzzlePtr, 'r', moveNum, emptyIndex, maxMoves);
         if(result != NULL){
             result[moveNum] = 'r';
             deletePuzzle(currPuzzlePtr);
@@ -224,10 +240,10 @@ char *findSolvePath(Puzzle puzzle, char direction, int moveNum, int emptyIndex){
     }
 
     if((isLegalMove(currPuzzlePtr, 'u', emptyIndex)) && direction != 'd'){
-        if(moveNum == 0){
-            printf("up");
-        }
-        result = findSolvePath(*currPuzzlePtr, 'u', moveNum, emptyIndex);
+        // if(moveNum == 0){
+        //     printf("up");
+        // }
+        result = findSolvePath(*currPuzzlePtr, 'u', moveNum, emptyIndex, maxMoves);
         if(result != NULL){
             result[moveNum] = 'u';
             deletePuzzle(currPuzzlePtr);
@@ -236,10 +252,10 @@ char *findSolvePath(Puzzle puzzle, char direction, int moveNum, int emptyIndex){
     }
 
     if((isLegalMove(currPuzzlePtr, 'd', emptyIndex)) && direction != 'u'){
-        if(moveNum == 0){
-            printf("sdcwdc");
-        }
-        result = findSolvePath(*currPuzzlePtr, 'd', moveNum, emptyIndex);
+        // if(moveNum == 0){
+        //     printf("sdcwdc");
+        // }
+        result = findSolvePath(*currPuzzlePtr, 'd', moveNum, emptyIndex, maxMoves);
         if(result != NULL){
             result[moveNum] = 'd';
             deletePuzzle(currPuzzlePtr);
