@@ -81,24 +81,14 @@ int main(void) {
 
     *testPuzzle = tempPuzzle;
 
-    for(int i = 0; i < (puzzleSize * puzzleSize); i++){
+    printPuzzle(*testPuzzle);
 
-        if((i) % puzzleSize == 0){
-            printf("\n");
-        }
-        printf("%d ", testPuzzle->grid[i]);
-    }
-    printf("\n");
+
     
     solve(testPuzzle, 150);
     
 
-    for(int i = 0; i < (puzzleSize*puzzleSize); i++){
-        if((i) % puzzleSize == 0){
-            printf("\n");
-        }
-        printf("%d ", testPuzzle->grid[i]);
-    }
+    printPuzzle(*testPuzzle);
     printf("\nAll tests passed!\n");
     free(testPuzzle);
     return 0;

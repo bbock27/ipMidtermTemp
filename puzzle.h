@@ -31,6 +31,7 @@ int moveUp(Puzzle *puzzle, int emptyIndex);
 int moveDown(Puzzle *puzzle, int emptyIndex);
 void swap(Puzzle *puzzle, int index1, int index2);
 void followPath(Puzzle *puzzle, char *path);
+void printPuzzle(Puzzle puzzle);
 
 int isLegalMove(Puzzle *puzzle, char direction, int emptyIndex);
 

@@ -15,6 +15,17 @@ Puzzle *createPuzzle(int size){
     return malloc(sizeof(Puzzle));
 }
 
+void printPuzzle(Puzzle puzzle){
+    for(int i = 0; i < (puzzle.size * puzzle.size); i++){
+
+        if((i) % puzzle.size == 0){
+            printf("\n");
+        }
+        printf("%d ", puzzle.grid[i]);
+    }
+    printf("\n");
+}
+
 
 int solve(Puzzle *puzzle, int maxMoves){
     int zeroIndex = findEmptyIndex(puzzle);
