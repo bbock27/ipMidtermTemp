@@ -24,6 +24,15 @@ int solve(Puzzle *puzzle, int maxMoves);
 //returns -1 if no empty space found
 int findEmptyIndex(Puzzle *puzzle);
 
+
+void handleVcommand(Puzzle *puzzle);
+Puzzle *handleCcommand();
+void handlePcommand(Puzzle *puzzle);
+void handleScommand(Puzzle *puzzle);
+
+
+void setPuzzleTile(Puzzle *puzzle, int col, int row, int newVal);
+int getPuzzleTile(Puzzle *puzzle, int col, int row);
 void setPuzzleImage(Puzzle *, char *imageFile);
 void setPuzzleGrid(Puzzle *, int *);
 void changePuzzleImage(Puzzle *, char *imageFile);

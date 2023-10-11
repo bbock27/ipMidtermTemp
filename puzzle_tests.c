@@ -5,7 +5,7 @@
 #include "puzzle.h"
 
 // also tests puzzle_destroy
-/*
+
 void test_puzzle_create(void) {
 
   Puzzle *p3 = createPuzzle(3);
@@ -13,16 +13,16 @@ void test_puzzle_create(void) {
 
   assert(p3->size == 3);
   for (int i = 0; i < 9; ++i) {
-    assert(p3->tiles[i] == 0);
+    assert(p3->grid[i] == 0);
   }
 
   assert(p5->size == 5);
   for (int i = 0; i < 25; ++i) {
-    assert(p5->tiles[i] == 0);
+    assert(p5->grid[i] == 0);
   }
-
-  puzzle_destroy(p3);
-  puzzle_destroy(p5);
+    printf("add/delete puzzle test passed\n");
+  deletePuzzle(p3);
+  deletePuzzle(p5);
 }
 
 // also tests puzzle_get_tile
@@ -34,23 +34,24 @@ void test_puzzle_set_tile(void) {
     { 14, 15, 10, 12 },
   };
 
-  Puzzle *p4 = puzzle_create(4);
+  Puzzle *p4 = createPuzzle(4);
   for (int i = 0; i < 4; ++i)
     for (int j = 0; j < 4; ++j)
-      puzzle_set_tile(p4, j, i, init[i][j]);
+      setPuzzleTile(p4, j, i, init[i][j]);
 
   for (int i = 0; i < 4; ++i)
     for (int j = 0; j < 4; ++j)
-      assert(puzzle_get_tile(p4, j, i) == init[i][j]);
+      assert(getPuzzleTile(p4, j, i) == init[i][j]);
 
-  puzzle_destroy(p4);
+      printf("get/set tile test passed\n");
+  deletePuzzle(p4);
 }
-*/
+
 // ...other test functions...
 
 int main(void) {
-//   test_puzzle_create();
-//   test_puzzle_set_tile();
+  test_puzzle_create();
+  test_puzzle_set_tile();
   // ...call other test functions...
     int init[4][4] = {
     { 5, 7, 1, 2 },

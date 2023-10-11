@@ -7,6 +7,43 @@
 
 // TODO: implement functions
 
+void handleVcommand(Puzzle *puzzle){
+    solve(puzzle, 150);
+}
+
+Puzzle *handleCcommand(){
+    char sizeAsChar = '\0';
+    scanf("%c", &sizeAsChar);
+    int size = sizeAsChar - '0';
+    return createPuzzle(size);
+}
+
+void handlePcommand(Puzzle *puzzle){
+    printPuzzle(*puzzle);
+}
+
+int handleKcommand(Puzzle *puzzle){
+    return isSolved(puzzle);
+}
+
+void handleScommand(Puzzle *puzzle){
+    char direction = '\0';
+    scanf("%c", &direction);
+    
+    if(direction == 'l'){
+        moveLeft(puzzle, findEmptyIndex(puzzle));
+    }
+    else if(direction == 'r'){
+        moveRight(puzzle, findEmptyIndex(puzzle));
+    }
+    else if(direction == 'u'){
+        moveUp(puzzle, findEmptyIndex(puzzle));
+    }
+    else if(direction == 'd'){
+        moveDown(puzzle, findEmptyIndex(puzzle));
+    }
+}
+
 Puzzle *createPuzzle(int size){
     // int temp[] = {1, 0, 4, 3};
     Puzzle *p = malloc(sizeof(Puzzle));
@@ -18,6 +55,14 @@ Puzzle *createPuzzle(int size){
 
 void setPuzzleImage(Puzzle *puzzle, char *imageFile){
     puzzle->image = calloc(strlen(imageFile)+1, sizeof(char));
+}
+
+
+void setPuzzleTile(Puzzle *puzzle, int col, int row, int newVal){
+    puzzle->grid[(col + (row*puzzle->size))] = newVal;
+}
+int getPuzzleTile(Puzzle *puzzle, int col, int row){
+    return puzzle->grid[(col + (row*puzzle->size))];
 }
 
 void setPuzzleGrid(Puzzle *puzzle, int *grid){
