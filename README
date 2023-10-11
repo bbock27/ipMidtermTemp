@@ -1,0 +1,16 @@
+TODO
+    T command 
+        read in input
+        determine puzzle size
+        create puzzle with specified grid
+            can be done with setPuzzleTile()
+    I command
+        reading image and splitting it up into its resulting subimages
+
+    W command
+        read in two filenames as inputs
+        write current puzzle configuration and corresponding image configuration to specified files
+    Q command
+        exit program and free all currently used memory
+
+
